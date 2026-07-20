@@ -1,2 +1,4 @@
 # IOC--
 International Olympic Committee (IOC)
+
+The proposed architecture follows a scalable data warehouse approach designed to support analytics, machine learning, and deep learning workloads. The Bronze, Silver, and Gold layers provide clear data separation between raw, processed, and business-ready datasets, ensuring data quality, traceability, and reusability. Apache Spark was selected as the processing engine due to its scalability and ability to handle distributed batch processing. The Gold layer uses a star schema model to provide optimized datasets for analytical consumption. Apache Atlas was included as the governance layer to provide metadata management, data lineage, and data transparency. This architecture enables the IOC to build reliable data products while maintaining governance, scalability, and operational efficiency.
