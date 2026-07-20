@@ -119,7 +119,7 @@ def transform_silver(
             {
                 "Age": round(age_mean),
                 "Height": round(height_mean),
-                "Weight": round(weight_mean, 1),
+                "Weight": round(weight_mean),
             }
         )
     )
@@ -176,7 +176,6 @@ def transform_silver(
         )
     )
 
-
     # ==========================================
     # Create Game Silver Dataset
     # ==========================================
@@ -184,7 +183,6 @@ def transform_silver(
     game_df = (
         athlete_events_df
         .select(
-            "Games",
             "Year",
             "Season",
             "City",

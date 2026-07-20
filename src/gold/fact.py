@@ -89,7 +89,8 @@ def create_fact(
 
         .join(
             dim_game_df,
-            athlete_events_df.Games == dim_game_df.Games,
+            athlete_events_df.Year == dim_game_df.Year,
+            athlete_events_df.Season == dim_game_df.Season,
             "left"
         )
     )
@@ -111,27 +112,6 @@ def create_fact(
 
 
     # ==========================================
-    # Create Measures
-    # ==========================================
-
-    fact_df = (
-        fact_df
-        .withColumn(
-            "medal_count",
-            when(
-                col("Medal").isin(
-                    "Gold",
-                    "Silver",
-                    "Bronze",
-                ),
-                1,
-            )
-            .otherwise(0)
-        )
-    )
-
-
-    # ==========================================
     # Add Audit Columns
     # ==========================================
 
@@ -140,10 +120,6 @@ def create_fact(
         .withColumn(
             "date_insert",
             current_timestamp()
-        )
-        .withColumn(
-            "date_update",
-            lit(None).cast("timestamp")
         )
     )
 

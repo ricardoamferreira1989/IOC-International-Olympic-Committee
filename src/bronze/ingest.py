@@ -1,6 +1,5 @@
 from pyspark.sql import SparkSession, DataFrame
 
-
 # ==========================================
 # Bronze Layer Ingestion
 # ==========================================
