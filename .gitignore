@@ -1,0 +1,19 @@
+# Virtual environment
+venv/
+
+# Spark generated data
+data/bronze/
+data/silver/
+data/gold/
+
+# Spark temporary files
+*.parquet
+_SUCCESS
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDE
+.vscode/
+.idea/
