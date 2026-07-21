@@ -18,37 +18,6 @@ The platform follows a Medallion Architecture:
 
 Governance is represented by **Apache Atlas**, and orchestration is demonstrated using **Apache Airflow**.
 
----
-
-## Project Structure
-
-IOC-Analytics-Platform/
-│
-├── data/
-│   ├── source/
-│   ├── bronze/
-│   ├── silver/
-│   └── gold/
-│
-├── src/
-│   ├── bronze/
-│   ├── silver/
-│   ├── gold/
-│   ├── pipeline.py
-│   └── main.py
-│
-├── orchestration/
-│   └── olympic_pipeline_dag.py
-│
-├── diagrams/
-│   ├── architecture.png
-│   └── star_schema.png
-│
-├── README.md
-├── requirements.txt
-└── mypy.ini
-
----
 
 ## Pipeline
 
