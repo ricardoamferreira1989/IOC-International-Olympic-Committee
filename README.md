@@ -1,8 +1,74 @@
-# IOC--
-International Olympic Committee (IOC)
+# IOC Analytics Platform
 
-Architecture Justification
+## Overview
 
-The proposed architecture follows a Medallion Architecture (Bronze, Silver, and Gold) to support scalable batch data processing while ensuring data quality and governance. The Bronze layer stores immutable raw data, the Silver layer performs data cleansing and transformations, and the Gold layer delivers business-ready datasets organized in a star schema for analytical consumption. Apache Spark was selected as the processing engine due to its scalability and ability to efficiently process large datasets in batch mode. This architecture also supports future machine learning and deep learning workloads by providing clean and curated data from the Silver and Gold layers. Apache Atlas serves as the governance layer, offering metadata management, data lineage, and data discovery to ensure transparency and traceability across the platform. The proposed solution is scalable, maintainable, and aligned with modern data engineering best practices while supporting the IOC's analytical and governance requirements.
+This project was developed as part of a Data Engineering case study for the International Olympic Committee (IOC).
 
-Implementation Note: For simplicity and ease of execution, the Gold layer is stored in Parquet files while maintaining a dimensional star schema. In a production environment, this layer could be implemented in a relational data warehouse such as PostgreSQL, SQL Server, or Microsoft Fabric Warehouse without changing the overall architecture.
+The solution implements a batch analytics platform using Python and Apache Spark following a Medallion Architecture (Bronze, Silver, and Gold). The platform supports analytics workloads and demonstrates dimensional modelling, Slowly Changing Dimensions (SCD), and data governance concepts.
+
+---
+
+## Architecture
+
+The platform follows a Medallion Architecture:
+
+- **Bronze** – Raw data ingestion from the source CSV.
+- **Silver** – Data cleansing and transformations.
+- **Gold** – Star schema creation for analytical reporting.
+
+Governance is represented by **Apache Atlas**, and orchestration is demonstrated using **Apache Airflow**.
+
+---
+
+## Project Structure
+
+IOC-Analytics-Platform/
+│
+├── data/
+│   ├── source/
+│   ├── bronze/
+│   ├── silver/
+│   └── gold/
+│
+├── src/
+│   ├── bronze/
+│   ├── silver/
+│   ├── gold/
+│   ├── pipeline.py
+│   └── main.py
+│
+├── orchestration/
+│   └── olympic_pipeline_dag.py
+│
+├── README.md
+├── requirements.txt
+└── mypy.ini
+```
+
+---
+
+## Pipeline
+
+The pipeline consists of three stages:
+
+1. Bronze – Ingest raw CSV data into Parquet.
+2. Silver – Clean and transform the data.
+3. Gold – Build dimension and fact tables using a star schema.
+
+The `dim_athlete` dimension implements **Slowly Changing Dimension Type 2**, preserving historical changes to athlete height and weight.
+
+---
+
+## Technologies
+
+- Python
+- Apache Spark (PySpark)
+- Apache Airflow
+- Apache Atlas
+- Parquet
+
+---
+
+## Repository
+
+This repository contains the architecture design, dimensional model, and Python implementation required for the case study.
