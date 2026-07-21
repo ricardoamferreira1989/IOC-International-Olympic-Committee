@@ -89,9 +89,11 @@ def create_fact(
 
         .join(
             dim_game_df,
-            athlete_events_df.Year == dim_game_df.Year,
-            athlete_events_df.Season == dim_game_df.Season,
-            "left"
+            [
+                 athlete_events_df.Year == dim_game_df.Year,
+                 athlete_events_df.Season == dim_game_df.Season,
+            ],
+            "left",
         )
     )
 

@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession, DataFrame
 
+
 # ==========================================
 # Bronze Layer Ingestion
 # ==========================================
@@ -10,24 +11,19 @@ def ingest_bronze(
     output_path: str,
 ) -> DataFrame:
     """
-    Read raw Olympic dataset and store it in the Bronze.
+    Read the raw Olympic dataset and store it in the Bronze layer.
     """
-    # ==========================================
-    # Read Raw Olympic Dataset
-    # ==========================================
 
     athlete_events_df = (
         spark.read
         .format("csv")
-        .option("inferSchema", True)
-        .option("header", True)
+        .option("header", "true")
+        .option("inferSchema", "true")
         .load(input_path)
     )
 
-
-    # ==========================================
-    # Store Data in Bronze Layer
-    # ==========================================
+    if athlete_events_df.rdd.isEmpty():
+        raise ValueError("The input dataset is empty.")
 
     (
         athlete_events_df.write
@@ -35,6 +31,5 @@ def ingest_bronze(
         .mode("overwrite")
         .save(output_path)
     )
-
 
     return athlete_events_df

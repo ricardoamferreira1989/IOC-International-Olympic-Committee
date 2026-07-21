@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from airflow import DAG
 from airflow.operators.bash import BashOperator
@@ -7,6 +7,8 @@ from airflow.operators.bash import BashOperator
 default_args = {
     "owner": "IOC",
     "depends_on_past": False,
+    "retries": 1,
+    "retry_delay": timedelta(minutes=5),
 }
 
 
