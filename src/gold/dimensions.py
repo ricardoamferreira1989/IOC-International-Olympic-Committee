@@ -147,7 +147,8 @@ def create_dimensions(
             )
 
             .filter(
-
+                (col("new.Age") != col("old.Age"))
+                |
                 (col("new.Weight") != col("old.Weight"))
                 |
                 (col("new.Height") != col("old.Height"))
