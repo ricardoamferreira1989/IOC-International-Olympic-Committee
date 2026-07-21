@@ -137,7 +137,9 @@ def transform_silver(
             "Sex",
             "Age",
             "Height",
-            "Weight"
+            "Weight",
+            "Team",
+            "NOC"
         )
         .dropDuplicates()
     )

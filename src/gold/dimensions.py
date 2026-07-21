@@ -151,6 +151,10 @@ def create_dimensions(
                 (col("new.Weight") != col("old.Weight"))
                 |
                 (col("new.Height") != col("old.Height"))
+                |
+                (col("new.Team") != col("old.Team"))
+                |
+                (col("new.NOC") != col("old.NOC"))
 
             )
         )
@@ -199,7 +203,9 @@ def create_dimensions(
                 col("new.Sex"),
                 col("new.Age"),
                 col("new.Height"),
-                col("new.Weight")
+                col("new.Weight"),
+                col("new.Team"),
+                col("new.NOC")
             )
 
             .withColumn(

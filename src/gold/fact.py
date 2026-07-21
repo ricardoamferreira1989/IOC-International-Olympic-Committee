@@ -22,7 +22,7 @@ def create_fact(
     """
 
     # ==========================================
-    # Read  Dimensions
+    # Read Dimensions
     # ==========================================
 
     dim_athlete_df = (
@@ -33,7 +33,6 @@ def create_fact(
         )
     )
 
-
     dim_event_df = (
         spark.read
         .format("parquet")
@@ -42,7 +41,6 @@ def create_fact(
         )
     )
 
-
     dim_game_df = (
         spark.read
         .format("parquet")
@@ -50,7 +48,6 @@ def create_fact(
             f"{gold_path}/dim_game"
         )
     )
-
 
     # ==========================================
     # Read Silver Data
@@ -64,20 +61,17 @@ def create_fact(
         )
     )
 
-
     # ==========================================
     # Create Fact Table
     # ==========================================
 
     fact_df = (
         athlete_events_df
-
         .join(
             dim_athlete_df,
             athlete_events_df.ID == dim_athlete_df.ID,
             "left"
         )
-
         .join(
             dim_event_df,
             [
@@ -86,32 +80,36 @@ def create_fact(
             ],
             "left"
         )
-
         .join(
             dim_game_df,
             [
-                 athlete_events_df.Year == dim_game_df.Year,
-                 athlete_events_df.Season == dim_game_df.Season,
+                athlete_events_df.Year == dim_game_df.Year,
+                athlete_events_df.Season == dim_game_df.Season,
             ],
-            "left",
+            "left"
         )
     )
-
 
     # ==========================================
     # Select Fact Columns
     # ==========================================
 
-    fact_df = fact_df.select(
-        "athlete_key",
-        "event_key",
-        "game_key",
-
-        "Medal",
-        "Team",
-        "NOC"
+    fact_df = (
+        fact_df
+        .select(
+            "athlete_key",
+            "event_key",
+            "game_key",
+            "Medal",
+        )
+        .withColumn(
+            "medal_count",
+            when(
+                (col("Medal").isNotNull()) & (col("Medal") != "NA"),
+                lit(1)
+            ).otherwise(lit(0))
+        )
     )
-
 
     # ==========================================
     # Add Audit Columns
@@ -124,7 +122,6 @@ def create_fact(
             current_timestamp()
         )
     )
-
 
     # ==========================================
     # Save Fact Table
