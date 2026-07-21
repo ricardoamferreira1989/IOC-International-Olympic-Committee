@@ -40,10 +40,13 @@ IOC-Analytics-Platform/
 ├── orchestration/
 │   └── olympic_pipeline_dag.py
 │
+├── diagrams/
+│   ├── architecture.png
+│   └── star_schema.png
+│
 ├── README.md
 ├── requirements.txt
 └── mypy.ini
-```
 
 ---
 
